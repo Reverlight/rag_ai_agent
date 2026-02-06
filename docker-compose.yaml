@@ -1,0 +1,54 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - ./qdrant_storage:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8023"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      - INNGEST_DEV=1
+      - INNGEST_BASE_URL=http://inngest-dev:8288
+      - QDRANT_URL=http://qdrant:6333
+    depends_on:
+      - qdrant
+    command: uv run uvicorn main:app --reload --host 0.0.0.0 --port 8023
+
+  inngest-dev:
+    image: node:20-alpine
+    ports:
+      - "8288:8288"
+    volumes:
+      - ./inngest:/inngest
+    working_dir: /inngest
+    command: npx inngest-cli@latest dev -u http://app:8023/api/inngest --no-discovery --port 8288 --host 0.0.0.0
+    depends_on:
+      - app
+
+#  streamlit:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8501:8501"
+#    volumes:
+#      - .:/app
+#    environment:
+#      - API_URL=http://app:8000
+#      - OPENAI_API_KEY=${OPENAI_API_KEY}
+#    depends_on:
+#      - app
+#    command: streamlit run streamlit_app.py --server.port 8501 --server.address 0.0.0.0
