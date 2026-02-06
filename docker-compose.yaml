@@ -34,7 +34,7 @@ services:
     volumes:
       - ./inngest:/inngest
     working_dir: /inngest
-    command: npx inngest-cli@latest dev -u http://app:8023/api/inngest --no-discovery --port 8288 --host 0.0.0.0
+    command: npx inngest-cli@latest dev --persist -u http://app:8023/api/inngest --no-discovery --port 8288 --host 0.0.0.0
     depends_on:
       - app
 
