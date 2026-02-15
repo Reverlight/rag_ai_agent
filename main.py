@@ -53,9 +53,9 @@ async def rag_ingest_pdf(ctx: inngest.Context):
     ingested = await ctx.step.run(
         "embed-and-upsert",
         lambda: _upsert(chunks_and_src),
-        output_type=RAGChunkAndSrc,
+        output_type=RAGUpsertResult,  # ✅ CORRECT
     )
-    return ingested.module_dump()
+    return ingested.model_dump()
 
 
 app = FastAPI()
