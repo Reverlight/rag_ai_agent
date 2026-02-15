@@ -6,24 +6,23 @@ from dotenv import load_dotenv
 load_dotenv()
 
 client = OpenAI()
-EMBEDED_MODEL = 'text-embedding-3-large'
-EMBEDED_DIM = 3072
+EMBED_MODEL = "text-embedding-3-large"
+EMBED_DIM = 3072
 
 splitter = SentenceSplitter(chunk_size=1000, chunk_overlap=200)
 
-
 def load_and_chunk_pdf(path: str):
     docs = PDFReader().load_data(file=path)
-    texts = [d.text for d in docs if getattr(d, 'text', None)]
+    texts = [d.text for d in docs if getattr(d, "text", None)]
     chunks = []
     for t in texts:
-        chunks.extend(splitter.split_texts(t))
+        chunks.extend(splitter.split_text(t))
     return chunks
 
 
-def embed_texts(texts):
+def embed_texts(texts: list[str]) -> list[list[float]]:
     response = client.embeddings.create(
-        model=EMBEDED_MODEL,
-        input=texts
+        model=EMBED_MODEL,
+        input=texts,
     )
     return [item.embedding for item in response.data]
