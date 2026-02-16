@@ -38,17 +38,19 @@ services:
     depends_on:
       - app
 
-#  streamlit:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    ports:
-#      - "8501:8501"
-#    volumes:
-#      - .:/app
-#    environment:
-#      - API_URL=http://app:8000
-#      - OPENAI_API_KEY=${OPENAI_API_KEY}
-#    depends_on:
-#      - app
-#    command: streamlit run streamlit_app.py --server.port 8501 --server.address 0.0.0.0
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - app
+    stdin_open: true
+    tty: true
