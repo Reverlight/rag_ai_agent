@@ -78,13 +78,13 @@ async def rag_query_pdf_ai(ctx: inngest.Context):
 
     question = ctx.event.data['question']
     top_k = int(ctx.event.data.get('top_k', 5))
-    found = await ctx.step.run('embed-and-search', lambda: _search(question, top_k), output_type=RAGSearchResult)
+    found = await ctx.step.run("embed-and-search", lambda: _search(question, top_k), output_type=RAGSearchResult)
 
-    content_block = 'n/n'.join(f' - {c}' for c in found.contexts)
+    content_block = '\n\n'.join(f' - {c}' for c in found.contexts)  # ✅ FIX 1: 'n/n' → '\n\n'
     user_content = (
         'Use the following context to answer the question. \n\n'
         f'Context:\n{content_block}\n\n'
-        f'Question {question}\n'
+        f'Question: {question}\n'  # ✅ FIX 2: Added colon after 'Question'
         'Answer concisely using the context above.'
     )
     adapter = ai.openai.Adapter(
@@ -95,10 +95,10 @@ async def rag_query_pdf_ai(ctx: inngest.Context):
         'llm-answer',
         adapter=adapter,
         body={
-            'max_token': 1024,
+            'max_tokens': 1024,  # ✅ FIX 3: 'max_token' → 'max_tokens'
             'temperature': 0.2,
-            'messages':[
-                {'role': 'system', 'content': 'Your answer questions using only the provided context'},
+            'messages': [
+                {'role': 'system', 'content': 'You answer questions using only the provided context'},
                 {'role': 'user', 'content': user_content}
             ]
         }
