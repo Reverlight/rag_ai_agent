@@ -1,0 +1,357 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%);
+  padding: 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.header p {
+  font-size: 1.25rem;
+  color: #e9d5ff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.upload-area {
+  margin-bottom: 1.5rem;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 10rem;
+  border: 2px dashed #c084fc;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.3s;
+  padding: 1rem;
+}
+
+.file-label:hover {
+  border-color: #d8b4fe;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.file-label svg {
+  color: #d8b4fe;
+  margin-bottom: 0.75rem;
+}
+
+.file-label span {
+  color: #e9d5ff;
+  text-align: center;
+}
+
+.btn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(to right, #9333ea, #3b82f6);
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(to right, #7e22ce, #2563eb);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary {
+  background: linear-gradient(to right, #3b82f6, #9333ea);
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: linear-gradient(to right, #2563eb, #7e22ce);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.message {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.message-success {
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid #4ade80;
+}
+
+.message-success svg {
+  color: #86efac;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.message-error {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid #f87171;
+}
+
+.message-error svg {
+  color: #fca5a5;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.message-uploading {
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid #60a5fa;
+}
+
+.message p {
+  color: white;
+  font-size: 0.875rem;
+  flex: 1;
+}
+
+.textarea {
+  width: 100%;
+  height: 8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(192, 132, 252, 0.5);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  color: white;
+  font-size: 1rem;
+  resize: none;
+  font-family: inherit;
+  margin-bottom: 0.5rem;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #c084fc;
+  box-shadow: 0 0 0 3px rgba(192, 132, 252, 0.5);
+}
+
+.textarea::placeholder {
+  color: rgba(233, 213, 255, 0.5);
+}
+
+.hint {
+  color: rgba(233, 213, 255, 0.7);
+  font-size: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.answer-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(192, 132, 252, 0.5);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.answer-section,
+.sources-section {
+  margin-bottom: 1rem;
+}
+
+.answer-section:last-child,
+.sources-section:last-child {
+  margin-bottom: 0;
+}
+
+.answer-section h3,
+.sources-section h3 {
+  color: #d8b4fe;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.answer-section p {
+  color: white;
+  line-height: 1.625;
+}
+
+.sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.source-tag {
+  background: rgba(168, 85, 247, 0.3);
+  color: #e9d5ff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+}
+
+.context-info {
+  color: rgba(233, 213, 255, 0.7);
+  font-size: 0.75rem;
+  margin-top: 1rem;
+}
+
+.error-result {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: #fca5a5;
+}
+
+.error-result svg {
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.error-result p {
+  font-size: 0.875rem;
+}
+
+.activity-log h2 {
+  margin-bottom: 1.5rem;
+}
+
+.events {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.event-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+.icon-success {
+  color: #4ade80;
+  flex-shrink: 0;
+}
+
+.icon-error {
+  color: #f87171;
+  flex-shrink: 0;
+}
+
+.icon-query {
+  color: #60a5fa;
+  flex-shrink: 0;
+}
+
+.event-message {
+  color: white;
+  flex: 1;
+}
+
+.event-time {
+  color: rgba(233, 213, 255, 0.7);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
