@@ -2,6 +2,7 @@
 
 AI-powered document Q&A system built with FastAPI, React, and Qdrant vector database. Upload PDFs and query their content using natural language.
 
+![Preview](https://raw.githubusercontent.com/Reverlight/rag_ai_agent/feature/frontend/preview.png)
 
 ## Features
 
