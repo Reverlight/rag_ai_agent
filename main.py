@@ -257,6 +257,4 @@ async def global_exception_handler(request, exc):
     )
     inngest_client.send_sync(event)
 
-
 inngest.fast_api.serve(app, inngest_client, [rag_ingest_pdf, rag_query_pdf_ai])
-
