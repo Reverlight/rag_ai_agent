@@ -193,12 +193,6 @@ async def query_pdf(request: QueryRequest):
         raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
 
 
-
-@app.get('/error')
-def get_notes():
-    a = [10, 3, 4]
-    return {'error': a[5]}
-
 @inngest_client.create_function(
     fn_id="RAG: Query",
     trigger=inngest.TriggerEvent(event='rag/query_pdf_ai')
@@ -240,6 +234,7 @@ async def rag_query_pdf_ai(ctx: inngest.Context):
 
     answer = res['choices'][0]['message']['content'].strip()
     return {'answer': answer, 'sources': found.sources, 'num_contexts': len(found.contexts)}
+
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):
